@@ -24,7 +24,7 @@
     <div class="wrap">
         <div class="header_top">
             <div class="logo">
-                <a href="<?php echo base_url('/'); ?>"><img src="<?php echo base_url('uploads/'); ?><?php echo get_option('site_logo'); ?>" alt="" /></a>
+                <a href="<?php echo base_url('/'); ?>"><img style = "max-width:33%;"src="<?php echo base_url('uploads/'); ?><?php echo get_option('site_logo'); ?>" alt="" /></a>
             </div>
             <div class="header_top_right">
                 <div class="search_box">
