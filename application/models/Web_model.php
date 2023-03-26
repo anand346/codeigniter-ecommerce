@@ -2,6 +2,7 @@
 
 class Web_Model extends CI_Model
 {
+    
 
     public function get_all_featured_product()
     {
@@ -115,11 +116,24 @@ class Web_Model extends CI_Model
 
     public function get_customer_info($data)
     {
+        // return $data;
         $this->db->select('*');
         $this->db->from('tbl_customer');
         $this->db->where($data);
         $info = $this->db->get();
         return $info->row();
+    }
+
+    public function get_all_admin_info(){
+        $info = $this->db->get('tbl_user') ;
+        return $info->result_array();
+    }
+
+    public function get_all_customer_info()
+    {
+        
+        $info = $this->db->get('tbl_customer') ;
+        return $info->result_array();
     }
 
     public function save_payment_info($data)

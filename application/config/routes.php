@@ -3,7 +3,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 //Front End Route
 $route['default_controller']   = 'web';
-$route['404_override']         = 'web/error';
+$route['404_override']         = 'web/error'; 
 $route['translate_uri_dashes'] = false;
 
 //Web Route
@@ -17,7 +17,10 @@ $route['update/cart']         = 'web/update_cart';
 $route['remove/cart']         = 'web/remove_cart';
 $route['user_form']           = 'web/user_form';
 $route['get/category/(:num)'] = 'web/category_post/$1';
-
+$route['get/users']           = 'web/get_users';
+$route['get/user/(:num)']     = 'web/get_user/$1';
+$route['get/cookie']          = 'web/get_cookie';
+$route['set/cookie']          = 'web/set_cookie';
 $route['search']              = 'web/search';
 $route['customer/register']   = 'web/customer_register';
 $route['customer/login']      = 'web/customer_login';

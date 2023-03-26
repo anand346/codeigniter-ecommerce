@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.5.2
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 13, 2021 at 06:14 AM
--- Server version: 5.6.21
--- PHP Version: 5.6.3
+-- Generation Time: Mar 26, 2023 at 02:14 PM
+-- Server version: 10.4.22-MariaDB
+-- PHP Version: 8.1.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -69,7 +70,8 @@ INSERT INTO `tbl_category` (`id`, `category_name`, `category_description`, `publ
 (4, 'Smart TV', 'SmartTV Desc', 1),
 (5, 'Clothing', 'Clothing Desc  ', 1),
 (6, 'Shoes & Sneakers', 'Shoes &amp; Sneakers Desc', 1),
-(7, 'Accessories', 'Accessories Desc.', 1);
+(7, 'Accessories', 'Accessories Desc.', 1),
+(8, 'toys , kids', 'kids entertainment<br>', 1);
 
 -- --------------------------------------------------------
 
@@ -96,7 +98,8 @@ CREATE TABLE `tbl_customer` (
 
 INSERT INTO `tbl_customer` (`customer_id`, `customer_name`, `customer_email`, `customer_password`, `customer_address`, `customer_city`, `customer_zipcode`, `customer_phone`, `customer_country`, `customer_active`) VALUES
 (9, 'Christine', 'christine@gmail.com', '5f4dcc3b5aa765d61d8327deb882cf99', '458 Ralph Street', 'DEMO', '12500', '7458450000', 'Afghanistan', 1),
-(10, 'Bob Gardin', 'bobg@gmail.com', '5f4dcc3b5aa765d61d8327deb882cf99', '3556 Denver Avenue', 'Miram Loma', '3006', '7850002580', 'Australia', 1);
+(10, 'Bob Gardin', 'bobg@gmail.com', '5f4dcc3b5aa765d61d8327deb882cf99', '3556 Denver Avenue', 'Miram Loma', '3006', '7850002580', 'Australia', 1),
+(13, 'anand', 'rajanand9039@gmail.com', '90d788e31333195618c1ea10ad6aab36', 'siddhart enclave', 'bhopal', '462010', '9340824255', 'Armenia', 0);
 
 -- --------------------------------------------------------
 
@@ -130,7 +133,7 @@ CREATE TABLE `tbl_option` (
 --
 
 INSERT INTO `tbl_option` (`option_id`, `site_logo`, `site_favicon`, `site_copyright`, `site_contact_num1`, `site_contact_num2`, `site_facebook_link`, `site_twitter_link`, `site_google_plus_link`, `site_email_link`, `contact_title`, `contact_subtitle`, `contact_description`, `company_location`, `company_number`, `company_email`, `company_facebook`, `company_twitter`) VALUES
-(1, 'logo1.png', 'logo2.png', 'Developed By Rostom Ali', '7865454100', '7865454100', 'https://www.facebook.com', 'https://www.twitter.com', 'https://www.plus.google.com', 'https://www.gmail.com', 'Contact Page', 'Contact Page Subtitle', 'Contact Desc..', '565 Blecker\'s Street', '7865454100', 'https://www.gmail.com', 'https://www.facebook.com', 'https://www.twitter.com');
+(1, 'Be_Practical.png', 'Be_Practical1.png', 'BePractical Team', '1234567890', '1234567890', 'https://www.facebook.com', 'https://www.twitter.com', 'https://www.plus.google.com', 'https://www.gmail.com', 'Contact Page', 'Contact Page Subtitle', '                                                                        Contact Desc..\r\n                                \r\n                                ', '                                                                        565 Blecker\'s Street                                                                ', '1234567890', 'https://www.gmail.com', 'https://www.facebook.com', 'https://www.twitter.com');
 
 -- --------------------------------------------------------
 
@@ -153,7 +156,14 @@ CREATE TABLE `tbl_order` (
 
 INSERT INTO `tbl_order` (`order_id`, `customer_id`, `shipping_id`, `payment_id`, `order_total`, `actions`) VALUES
 (10, 9, 11, 16, 178250, 'Pending'),
-(11, 10, 12, 17, 23862.5, 'Pending');
+(11, 10, 12, 17, 23862.5, 'Pending'),
+(12, 11, 13, 18, 283878, 'Pending'),
+(13, 11, 14, 19, 800688, 'Pending'),
+(14, 11, 15, 20, 799250, 'Pending'),
+(15, 13, 16, 21, 22425, 'Pending'),
+(16, 13, 17, 22, 22425, 'Pending'),
+(17, 13, 18, 23, 0, 'Pending'),
+(18, 13, 19, 24, 0, 'Pending');
 
 -- --------------------------------------------------------
 
@@ -168,7 +178,7 @@ CREATE TABLE `tbl_order_details` (
   `product_name` varchar(255) NOT NULL,
   `product_price` float NOT NULL,
   `product_sales_quantity` int(11) NOT NULL,
-  `product_image` varchar(55) DEFAULT NULL
+  `product_image` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -184,7 +194,16 @@ INSERT INTO `tbl_order_details` (`order_details_id`, `order_id`, `product_id`, `
 (6, 9, 4, 'Product Four', 350000, 1, 'pic3.jpg'),
 (7, 10, 6, 'Samsung Galaxy S21 Ultra', 155000, 1, 'sm21u.jpg'),
 (8, 11, 2, 'Face Covers 3-Pack', 1250, 1, 'feature-pic2.jpg'),
-(9, 11, 1, 'Ultraboost DNA Black Python Shoes', 19500, 1, 'feature-pic1.jpg');
+(9, 11, 1, 'Ultraboost DNA Black Python Shoes', 19500, 1, 'feature-pic1.jpg'),
+(10, 12, 7, 'Mountain Rain Jacket', 16850, 1, 'Five_Ten_Bike_All-Mountain_Rain_Jacket_Green_GP7212_21_model.jpg'),
+(11, 12, 5, 'Razer 15.6', 230000, 1, 'preview-img.jpg'),
+(12, 13, 2, 'Face Covers 3-Pack', 1250, 1, 'feature-pic2.jpg'),
+(13, 13, 4, 'AUE60 Crystal 4K UHD', 695000, 1, 'pic3.jpg'),
+(14, 14, 4, 'AUE60 Crystal 4K UHD', 695000, 1, 'pic3.jpg'),
+(15, 15, 1, 'Ultraboost DNA Black Python Shoes', 19500, 1, 'feature-pic1.jpg'),
+(16, 16, 1, 'Ultraboost DNA Black Python Shoes', 19500, 1, 'feature-pic1.jpg'),
+(17, 17, 1, 'Ultraboost DNA Black Python Shoes', 0, 1, 'feature-pic1.jpg'),
+(18, 18, 2, 'Face Covers 3-Pack', 0, 5, 'feature-pic2.jpg');
 
 -- --------------------------------------------------------
 
@@ -219,7 +238,14 @@ INSERT INTO `tbl_payment` (`payment_id`, `payment_type`, `actions`) VALUES
 (14, 'cashon', 'pending'),
 (15, 'cashon', 'pending'),
 (16, 'cashon', 'pending'),
-(17, 'cashon', 'pending');
+(17, 'cashon', 'pending'),
+(18, 'cashon', 'pending'),
+(19, 'cashon', 'pending'),
+(20, 'paypal', 'pending'),
+(21, 'cashon', 'pending'),
+(22, 'ssl', 'pending'),
+(23, 'paypal', 'pending'),
+(24, 'paypal', 'pending');
 
 -- --------------------------------------------------------
 
@@ -239,8 +265,8 @@ CREATE TABLE `tbl_product` (
   `product_category` int(11) NOT NULL,
   `product_brand` int(11) NOT NULL,
   `product_author` int(11) NOT NULL,
-  `product_view` int(11) NOT NULL DEFAULT '0',
-  `published_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `product_view` int(11) NOT NULL DEFAULT 0,
+  `published_date` timestamp NOT NULL DEFAULT current_timestamp(),
   `publication_status` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -256,7 +282,8 @@ INSERT INTO `tbl_product` (`product_id`, `product_title`, `product_short_descrip
 (5, 'Razer 15.6', 'Designed for gaming, the Razer 15.6\" Blade 15 Gaming Laptop combines mobility with performance. Graphics are handled by the dedicated NVIDIA GeForce GTX 1660 Ti graphics card with VRAM.     ', 'Designed for gaming, the Razer 15.6\" Blade 15 Gaming Laptop combines mobility with performance. Graphics are handled by the dedicated NVIDIA GeForce GTX 1660 Ti graphics card with VRAM. It also features a 10th Gen 2.6 GHz Intel Core i7-10750H six-core processor and 16GB of 2933 MHz of DDR4 RAM. Its 256GB NVME PCIe M.2 SSD allows for fast boot times. For online multiplayer features, the Razer Blade 15 can utilize Wi-Fi 6 (802.11ax) or a wired Gigabit Ethernet connection. It also supports wireless accessories via Bluetooth 5.1 technology. The Razer Blade 15 features a precision-crafted aluminum chassis.\n\nThe 15.6\" display features a FHD 1920 x 1080 resolution and are individually factory calibrated, providing 100% of the sRGB color space. The bezels are thin, measuring in at about 4.9mm. The screen also has a matte finish to reduce glare in brightly-lit environments. The keyboard is backlit and supports Razer Chroma single-zone RGB lighting. Other features included Thunderbolt 3, USB Type-C, USB Type-A, and a 3.5mm audio jack. Windows 10 Home is the installed operating system.', 'preview-img.jpg', 230000, 56, 1, 1, 6, 1, 0, '2017-11-30 14:40:34', 1),
 (6, 'Samsung Galaxy S21 Ultra', 'The highest resolution photos and video on a smartphone', 'Samsung Electronics Co., Ltd. unveiled the Galaxy S21 Ultra, a flagship that pushes the boundaries of what a smartphone can do. The S21 Ultra pulls out all the stops for those who want Samsung’s best-of-the-best with our most advanced pro-grade camera system and our brightest, most intelligent display. It takes productivity and creativity up a notch by bringing the popular S Pen experience to the Galaxy S series for the first time.</span>', 'sm21u.jpg', 155000, 12, 1, 3, 2, 1, 0, '2021-05-12 09:20:39', 1),
 (7, 'Mountain Rain Jacket', 'A Lightweight Rain Jacket for Wet Weather Rides.', '<span style=\"font-family: AdihausDIN, Helvetica, Arial, sans-serif; font-size: 16px; white-space: pre-line; background-color: rgb(255, 255, 255);\">Expand your wet weather options.&nbsp;</span><span style=\"font-family: AdihausDIN, Helvetica, Arial, sans-serif; font-size: 16px; white-space: pre-line; background-color: rgb(255, 255, 255);\">The adidas Five Ten All-Mountain Rain Jacket keeps you dry and on the bike through cool misty days and afternoon showers.&nbsp;</span><span style=\"font-family: AdihausDIN, Helvetica, Arial, sans-serif; font-size: 16px; white-space: pre-line; background-color: rgb(255, 255, 255);\">RAIN.RDY keeps out wind and rain, while elastic cuffs, hem and hood further seal out the elements while you ride.&nbsp;</span><span style=\"font-family: AdihausDIN, Helvetica, Arial, sans-serif; font-size: 16px; white-space: pre-line; background-color: rgb(255, 255, 255);\">Its lightweight build makes for easy packing. Zip out the showers and keep on riding.</span>', 'Five_Ten_Bike_All-Mountain_Rain_Jacket_Green_GP7212_21_model.jpg', 16850, 26, 1, 5, 5, 1, 0, '2021-05-12 16:00:39', 1),
-(8, 'Galaxy Buds Pro', 'Introducing the New Galaxy Buds Pro', '<font face=\"Arial, Verdana\"><span style=\"font-size: 13.3333px;\">Our most immersive buds yet deliver powerful studio sound and crystal-clear call quality. Use Intelligent Active Noise Cancellation1 to escape into your music at a moment’s notice. Answer calls with just your voice and let in the sounds that matter most with adjustable ambient sound. Escape and tune in to your own moment of Zen—all with a single tap. Intelligent Active Noise Cancellation gives you the power to adjust your settings based on the world around you, so you always hear what you want to hear.1 Turn it to High on a noisy bus or to Low in a quiet library—no need to change the volume.</span></font>', 'budspro.jpg', 29550, 21, 1, 7, 2, 1, 0, '2021-05-12 16:31:50', 1);
+(8, 'Galaxy Buds Pro', 'Introducing the New Galaxy Buds Pro', '<font face=\"Arial, Verdana\"><span style=\"font-size: 13.3333px;\">Our most immersive buds yet deliver powerful studio sound and crystal-clear call quality. Use Intelligent Active Noise Cancellation1 to escape into your music at a moment’s notice. Answer calls with just your voice and let in the sounds that matter most with adjustable ambient sound. Escape and tune in to your own moment of Zen—all with a single tap. Intelligent Active Noise Cancellation gives you the power to adjust your settings based on the world around you, so you always hear what you want to hear.1 Turn it to High on a noisy bus or to Low in a quiet library—no need to change the volume.</span></font>', 'budspro.jpg', 29550, 21, 1, 7, 2, 1, 0, '2021-05-12 16:31:50', 1),
+(9, 'samsung galaxy', 'this is samsung galaxy . <br>', 'this is samsung galaxy . this is samsung galaxy . this is samsung galaxy . this is samsung galaxy . this is samsung galaxy . this is samsung galaxy . this is samsung galaxy . this is samsung galaxy . this is samsung galaxy . this is samsung galaxy . this is samsung galaxy . this is samsung galaxy . ', 'pngegg(36).png', 15000, 1, 1, 3, 2, 1, 0, '2022-07-05 04:22:46', 1);
 
 -- --------------------------------------------------------
 
@@ -282,7 +309,14 @@ CREATE TABLE `tbl_shipping` (
 
 INSERT INTO `tbl_shipping` (`shipping_id`, `customer_id`, `shipping_name`, `shipping_email`, `shipping_address`, `shipping_city`, `shipping_country`, `shipping_phone`, `shipping_zipcode`) VALUES
 (11, 0, 'Christine', 'christinem@gmail.com', '245 Ralph Street', 'Steyr', 'Austria', '7456320000', '12500'),
-(12, 0, 'Bob', 'bob@gmail.com', '3556 Denver Avenue', 'Mira Loma', 'Australia', '7458000025', '3006');
+(12, 0, 'Bob', 'bob@gmail.com', '3556 Denver Avenue', 'Mira Loma', 'Australia', '7458000025', '3006'),
+(13, 0, 'anand', 'rajanand9039@gmail.com', 'semra , bhopal', 'bhopal', 'Austria', '9039495824', '462010'),
+(14, 0, 'abhishek', 'ffaf@gmail.com', 'bhopal', 'bhopal', 'Argentina', '393939393', '343323'),
+(15, 0, 'anand', 'rajanand9039@gmail.com', 'bhopal,madhya pradesh', 'bhopal', 'Argentina', '9039495824', '462010'),
+(16, 0, 'Anand', 'rajanand9039@gmail.com', 'siddhar enclave', 'bhopal', 'Afghanistan', '9340824255', '462010'),
+(17, 0, 'anand', 'rajanand9039@gmaill.com', 'siddhar enclave', 'bhopal', 'Albania', '9340824255', '462010'),
+(18, 0, 'anand', 'hello@gmail.com', 'hello world', 'bhopal', 'Albania', '8786567654', '462010'),
+(19, 0, 'anand', 'hello@gmail.com', 'hello world', 'bhopal', 'Afghanistan', '8786567654', '462010');
 
 -- --------------------------------------------------------
 
@@ -319,8 +353,8 @@ CREATE TABLE `tbl_user` (
   `user_email` varchar(255) NOT NULL,
   `user_password` varchar(255) NOT NULL,
   `user_role` tinyint(4) NOT NULL,
-  `created_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `created_time` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_time` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -437,61 +471,74 @@ ALTER TABLE `user_role`
 --
 ALTER TABLE `tbl_brand`
   MODIFY `brand_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
 --
 -- AUTO_INCREMENT for table `tbl_category`
 --
 ALTER TABLE `tbl_category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
 --
 -- AUTO_INCREMENT for table `tbl_customer`
 --
 ALTER TABLE `tbl_customer`
-  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
 --
 -- AUTO_INCREMENT for table `tbl_option`
 --
 ALTER TABLE `tbl_option`
   MODIFY `option_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- AUTO_INCREMENT for table `tbl_order`
 --
 ALTER TABLE `tbl_order`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+
 --
 -- AUTO_INCREMENT for table `tbl_order_details`
 --
 ALTER TABLE `tbl_order_details`
-  MODIFY `order_details_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `order_details_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+
 --
 -- AUTO_INCREMENT for table `tbl_payment`
 --
 ALTER TABLE `tbl_payment`
-  MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+
 --
 -- AUTO_INCREMENT for table `tbl_product`
 --
 ALTER TABLE `tbl_product`
-  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
 --
 -- AUTO_INCREMENT for table `tbl_shipping`
 --
 ALTER TABLE `tbl_shipping`
-  MODIFY `shipping_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `shipping_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+
 --
 -- AUTO_INCREMENT for table `tbl_slider`
 --
 ALTER TABLE `tbl_slider`
   MODIFY `slider_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
 --
 -- AUTO_INCREMENT for table `tbl_user`
 --
 ALTER TABLE `tbl_user`
   MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
 --
 -- AUTO_INCREMENT for table `user_role`
 --
 ALTER TABLE `user_role`
   MODIFY `role_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

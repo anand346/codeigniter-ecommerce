@@ -67,7 +67,7 @@
                     </table>
                     <?php
                 } else {
-                    echo "<h1>Your Cart Empty</h1>";
+                    echo "<h1>Your Cart Is Empty</h1>";
                 }
                 ?>
             </div>

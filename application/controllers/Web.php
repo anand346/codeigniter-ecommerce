@@ -5,6 +5,11 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class Web extends CI_Controller
 {
 
+    public function __construct()
+    {   
+        parent::__construct();
+        error_reporting(0);
+    }
     public function index()
     {
         $data                          = array();
@@ -105,11 +110,16 @@ class Web extends CI_Controller
     {
         $data       = array();
         $product_id = $this->input->post('product_id');
+        $is_dev     = $this->input->post('is_dev');
         $results    = $this->web_model->get_product_by_id($product_id);
 
         $data['id']      = $results->product_id;
         $data['name']    = $results->product_title;
-        $data['price']   = $results->product_price;
+        if($is_dev){
+            $data['price']   = 0;
+        }else{
+            $data['price']   = $results->product_price;
+        }
         $data['qty']     = $this->input->post('qty');
         $data['options'] = array('product_image' => $results->product_image);
 
@@ -161,6 +171,53 @@ class Web extends CI_Controller
         $this->load->view('web/inc/header');
         $this->load->view('web/pages/customer_register');
         $this->load->view('web/inc/footer');
+    }
+
+    public function get_users(){
+
+        
+        $param = $this->input->get();
+        if(sizeof($param) > 0 && $param["Admin"] == "True"){
+            $data = $this->web_model->get_all_admin_info();
+            echo json_encode($data);
+        }else{
+            $data = $this->web_model->get_all_customer_info();
+            echo json_encode($data);
+        }
+        
+    }
+
+    public function get_cookie(){
+        $jwt_cookie = $this->input->cookie('JWT_Token');
+
+        $decoded = AUTHORIZATION::validateToken($jwt_cookie);
+
+        echo json_encode($decoded);
+    }
+    public function set_cookie(){
+        $tokenData = array();
+        $tokenData['user_email'] = "admin@gmail.com";
+        $tokenData['user_id']    = 1;
+        $tokenData['user_name']    = "admin";
+        $token                   = AUTHORIZATION::generateToken($tokenData);
+        // echo json_encode($token);
+        $jwt_cookie = array(
+            "name"  => "JWT_Token",
+            "value" => $token,
+            "path" => "/",
+            "secure" => TRUE,
+            "expire" => "300000000"
+        );
+        $this->input->set_cookie($jwt_cookie); 
+    }
+
+    public function get_user($id){
+        // print_r($id);
+        $udata['customer_id'] = $id;
+        // print_r($udata);
+        $result = $this->web_model->get_customer_info($udata);
+        $array = json_decode(json_encode($result), true);
+        print_r($array);
     }
 
     public function customer_login()
@@ -222,6 +279,18 @@ class Web extends CI_Controller
             if ($result) {
                 $this->session->set_userdata('customer_id', $result->customer_id);
                 $this->session->set_userdata('customer_email', $data['customer_email']);
+                $tokenData = array();
+                $tokenData['user_email'] = $data['customer_email'];
+                $tokenData['user_id']    = $result->customer_id;
+                $token                   = AUTHORIZATION::generateToken($tokenData);
+                $jwt_cookie = array(
+                    "name"  => "JWT_Token",
+                    "value" => $token,
+                    "path" => "/",
+                    "secure" => TRUE,
+                    "expire" => "300000000"
+                );
+                $this->input->set_cookie($jwt_cookie); 
                 redirect('/');
             } else {
                 $this->session->set_flashdata('message', 'Customer Login Fail');
@@ -315,7 +384,8 @@ class Web extends CI_Controller
         $data['shipping_zipcode'] = $this->input->post('shipping_zipcode');
 
         $this->form_validation->set_rules('shipping_name', 'Shipping Name', 'trim|required');
-        $this->form_validation->set_rules('shipping_email', 'Shipping EMail', 'trim|required|valid_email|is_unique[tbl_shipping.shipping_email]');
+        // $this->form_validation->set_rules('shipping_email', 'Shipping EMail', 'trim|required|valid_email|is_unique[tbl_shipping.shipping_email]');
+        $this->form_validation->set_rules('shipping_email', 'Shipping EMail', 'trim|required|valid_email');
         $this->form_validation->set_rules('shipping_address', 'Shipping Address', 'trim|required');
         $this->form_validation->set_rules('shipping_city', 'Shipping City', 'trim|required');
         $this->form_validation->set_rules('shipping_country', 'Shipping Country', 'trim|required');
@@ -385,12 +455,12 @@ class Web extends CI_Controller
                 $this->web_model->save_order_details_info($oddata);
             }
 
-            if ($payment_method == 'paypal') {
+            // if ($payment_method == 'paypal') {
 
-            }
-            if ($payment_method == 'cashon') {
+            // }
+            // if ($payment_method == 'cashon') {
 
-            }
+            // }
 
             $this->cart->destroy();
 
@@ -448,6 +518,7 @@ class Web extends CI_Controller
     {
         $this->session->unset_userdata('customer_id');
         $this->session->unset_userdata('customer_email');
+        delete_cookie("JWT_Token");
         redirect('customer/login');
     }
 

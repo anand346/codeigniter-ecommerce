@@ -33,6 +33,18 @@ class AdminLogin extends CI_Controller
                 $this->session->set_userdata('user_email', $result->user_email);
                 $this->session->set_userdata('user_name', $result->user_name);
                 $this->session->set_userdata('user_id', $result->user_id);
+                $tokenData = array();
+                $tokenData['user_email'] = $result->user_email;
+                $tokenData['user_id']    = $result->user_id;
+                $token                   = AUTHORIZATION::generateToken($tokenData);
+                $jwt_cookie = array(
+                    "name"  => "JWT_Token",
+                    "value" => $token,
+                    "path" => "/",
+                    "secure" => TRUE,
+                    "expire" => "300000000"
+                );
+                $this->input->set_cookie($jwt_cookie); 
                 redirect('dashboard');
             } else {
                 $this->session->set_flashdata('message', 'Your Email Or Password Does Not Match');
